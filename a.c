@@ -154,7 +154,15 @@ int main(void)
   {
     for(int p=0; p < 10; p++)
     {
-      fprintf(wp, " %d", grid[o][p]);
+      if(p<=8)
+      {
+        fprintf(wp, "%d,", grid[o][p]);
+      }
+      else
+      {
+        fprintf(wp, "%d", grid[o][p]);
+      }
+
     }
     if(o<=8)
     {
