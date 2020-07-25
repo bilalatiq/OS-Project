@@ -72,19 +72,23 @@ void nextGeneration(int gridd[10][10], int future[10][10], int MM, int NN)
 }
 int main(void)
 {
+  int o =0;
+  int p =0;
+  FILE *fp = fopen("input.txt", "r");
+  int get;
+  int grid[10][10];
 
-	// Intiliazing the grid.
-	int grid[10][10] = {
-		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-		{0, 0, 0, 1, 1, 0, 0, 0, 0, 0},
-		{0, 0, 0, 0, 1, 0, 0, 0, 0, 0},
-		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-		{0, 0, 0, 1, 1, 0, 0, 0, 0, 0},
-		{0, 0, 1, 1, 0, 0, 0, 0, 0, 0},
-		{0, 0, 0, 0, 0, 1, 0, 0, 0, 0},
-		{0, 0, 0, 0, 1, 0, 0, 0, 0, 0},
-		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}};
+  //Filling the array:
+  for(int o=0; o < 10; o++)
+  {
+    for(int p=0; p < 10; p++)
+    {
+      fscanf(fp, " %d", &get);
+      grid[o][p] = get;
+    }
+  }
+  fclose(fp);
+
 
 	int future[10][10] = {
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -145,6 +149,20 @@ int main(void)
 			}
 		}
 	}
+  FILE *wp = fopen("output.txt", "w");
+  for(int o=0; o < 10; o++)
+  {
+    for(int p=0; p < 10; p++)
+    {
+      fprintf(wp, " %d", grid[o][p]);
+    }
+    if(o<=8)
+    {
+      fprintf(wp,"\n");
+    }
+
+  }
+  fclose(wp);
 
 	// for (i = 0; i < 10; i++) {
 	//   for (j = 0; j < 10; j++) {
