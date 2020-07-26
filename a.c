@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <time.h>
 int M = 10, N = 10, i, j, l, m, master, gencounter = 1;
 void nextGeneration(int gridd[10][10], int future[10][10], int MM, int NN)
 {
@@ -72,11 +73,16 @@ void nextGeneration(int gridd[10][10], int future[10][10], int MM, int NN)
 }
 int main(void)
 {
+  clock_t t;
   int o =0;
   int p =0;
+  double TimeAVG=0;
+  double TimeSum=0;
+  int GenTimeCount=0;
   FILE *fp = fopen("input.txt", "r");
   int get;
   int grid[10][10];
+  double GenTimeArr[50];
 
   //Filling the array:
   for(int o=0; o < 10; o++)
@@ -116,7 +122,12 @@ int main(void)
 		printf("\n");
 	}
 	printf("\n");
+  t = clock();
 	nextGeneration(grid, future, M, N);
+  t = clock() - t;
+  double time_taken = ((double)t)/CLOCKS_PER_SEC; // in seconds 
+  GenTimeArr[GenTimeCount]=time_taken;
+  // printf("took %f seconds to execute \n", time_taken); 
 	for (i = 0; i < 10; i++)
 	{
 		for (j = 0; j < 10; j++)
@@ -133,7 +144,13 @@ int main(void)
 	}
 	for (int master = 0; master < 49; master++)
 	{
+    GenTimeCount++;
+    t=0;
+    t = clock();
 		nextGeneration(grid, future, M, N);
+    t = clock() - t;
+    time_taken = ((double)t)/CLOCKS_PER_SEC; // in seconds 
+    GenTimeArr[GenTimeCount]=time_taken;
 		for (i = 0; i < 10; i++)
 		{
 			for (j = 0; j < 10; j++)
@@ -149,6 +166,12 @@ int main(void)
 			}
 		}
 	}
+  for(i=0,j=1;i<50;i++,j++)
+  {
+    TimeSum=TimeSum+GenTimeArr[i];
+  }
+  TimeAVG=TimeSum/50;
+
   FILE *wp = fopen("output.txt", "w");
   for(int o=0; o < 10; o++)
   {
@@ -170,11 +193,8 @@ int main(void)
     }
 
   }
+  fprintf(wp,"\nAverage Time Taken For Each Generation is : %f",TimeAVG);
+  fprintf(wp,"\nTotal Time Taken For 50 Generations is : %f",TimeSum);
   fclose(wp);
 
-	// for (i = 0; i < 10; i++) {
-	//   for (j = 0; j < 10; j++) {
-	//      printf("Value for [%d][%d] is %d: \n",i,j, future[i][j]);
-	//   }
-	// }
 }
