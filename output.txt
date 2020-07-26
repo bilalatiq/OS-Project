@@ -8,3 +8,5 @@
 0,0,0,0,0,1,0,0,0,0
 0,0,0,0,0,1,0,0,0,0
 0,0,0,0,0,0,0,0,0,0
+Average Time Taken For Each Generation is : 0.000136
+Total Time Taken For 50 Generations is : 0.006801
